@@ -92,6 +92,10 @@ class Position {
     toString() {
         return this.inspect()
     }
+
+    toArray() {
+        return [this.x, this.y]
+    }
 }
 
 class Maze {
@@ -132,7 +136,8 @@ class MazeSolver {
     constructor(maze) {
         this.maze = maze
 
-        this.currentPosition = maze.getStartPosition().clone()
+        this.startPosition = maze.getStartPosition().clone()
+        this.currentPosition = this.startPosition.clone()
         this.exploredPositions = []
         this.crossways = []
         this.instructions = []
@@ -228,15 +233,30 @@ class MazeSolver {
         return this.explore()
     }
 
-    solve() {
+    solve(format='instructions') {
         const message = this.explore()
         if (message === 'got out') {
-            return this.instructions
+            if (format === 'instructions') {
+                return this.instructions
+            } else if (format === 'path') {
+                return this._getPath()
+            }
         } else {
             console.error(`Unexpected return value: "${message}"`)
             return []
         }
     }
+
+    _getPath() {
+        const positions = []
+        this.instructions.reduce((position, move) => {
+            const pos = [position[0] + move[0], position[1] + move[1]]
+            positions.push(pos)
+            return pos
+        }, this.startPosition.toArray())
+        return positions
+    }
+
 }
 
 
