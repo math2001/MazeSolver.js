@@ -241,7 +241,7 @@ class MazeSolver {
 function mathMoveToWord(moves) {
     const englishMoves = []
     let move;
-    for (var i = 0; i < moves.length; i++) {
+    for (let i = 0; i < moves.length; i++) {
         move = moves[i]
         if (!(move instanceof Array) || move.length !== 2) {
             englishMoves.push('?')
@@ -257,7 +257,22 @@ function mathMoveToWord(moves) {
             englishMoves.push('other')
         }
     }
-    return englishMoves.join(', ')
+    const noRepeatEnglishMoves = [
+        [englishMoves[0], 1]
+    ]
+    for (let i = 1; i < englishMoves.length; i++) {
+        if (englishMoves[i] === noRepeatEnglishMoves.slice(-1)[0][0]) {
+            noRepeatEnglishMoves[noRepeatEnglishMoves.length-1][1]++
+        } else {
+            noRepeatEnglishMoves.push([englishMoves[i], 1])
+        }
+    }
+    let string = []
+    for (var i = 0; i < noRepeatEnglishMoves.length; i++) {
+        string.push((noRepeatEnglishMoves[i][1] !== 1 ? noRepeatEnglishMoves[i][1] + ' ' : '')
+                + noRepeatEnglishMoves[i][0])
+    }
+    return string.join(', ')
 }
 
 function main() {
