@@ -101,6 +101,8 @@ class Maze {
             plan = plan.trim().split('\n').map(bit => bit.split('').map(nb => parseInt(nb)))
         }
         this.plan = plan
+        this.height = this.plan.length
+        this.width = this.plan[0].length
     }
 
     isInPlan(position) {
@@ -275,13 +277,16 @@ function mathMoveToWord(moves) {
     return string.join(', ')
 }
 
+
 function main() {
 
     const solver = new MazeSolver(new Maze(COMPLEX_MAZE))
     const instructions = solver.solve()
-    // CSW: ignore
-    console.log('English instructions:', mathMoveToWord(instructions))
+    if (typeof window === 'undefined') {
+        // CSW: ignore
+        console.log('English instructions:', mathMoveToWord(instructions))
+    }
 
 }
 
-main()
+
