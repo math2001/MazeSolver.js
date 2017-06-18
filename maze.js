@@ -101,7 +101,6 @@ class MazeSolver {
         this.exploredPositions = []
         this.crossways = []
         this.instructions = []
-        this.callCount = 0
     }
 
     hasExplored(position, isCrossway=false) {
@@ -151,10 +150,6 @@ class MazeSolver {
     }
 
     explore() {
-        this.callCount++
-        if (this.callCount > 1000) {
-            return 'call count stop'
-        }
         let potentialPositionsAround = this.getPotentialPositionsAround(this.currentPosition)
 
         for (var i = potentialPositionsAround.length - 1; i >= 0; i--) {
