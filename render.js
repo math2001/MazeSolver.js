@@ -50,5 +50,5 @@ class RenderMaze {
 }
 
 RenderMaze.init()
-const maze = new Maze(COMPLEX_MAZE_2)
+const maze = new Maze(IMPOSSIBLE_MAZE_1)
 RenderMaze.renderMaze(maze, new MazeSolver(maze).solve('path'))

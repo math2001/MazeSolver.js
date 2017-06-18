@@ -62,9 +62,9 @@ const COMPLEX_EASY_MAZE_1 = `
 `
 
 const IMPOSSIBLE_MAZE_1 = `
-012
-212
-223
+011121
+122121
+111123
 `
 
 
@@ -235,11 +235,11 @@ class MazeSolver {
         }
 
         else {
-            if (this.crossways.length === 0) {
-                return 'impossible'
-            }
             if (this.crossways.slice(-1)[0].sameAs(this.currentPosition)) {
                 this.crossways.pop()
+            }
+            if (this.crossways.length === 0) {
+                return 'impossible'
             }
             const crossway = this.crossways.slice(-1)[0]
             crossway.instructions = []
