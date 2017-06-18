@@ -7,65 +7,12 @@
 // 3 is where you have to go (the finish line)
 
 
-
 const CODES = {
     start: 0,
     path: 1,
     wall: 2,
     end: 3
 }
-
-// SIMPLE_MAZE → only one posibilty
-
-const SIMPLE_MAZE = `
-0222223
-1211121
-1212121
-1212111
-1112222
-`
-
-
-// there is always only 2 possible movement: the one you were before, and an other one
-const COMPLEX_EASY_MAZE = `
-022
-113
-122
-122
-`
-
-// there can be more than 2 possibilities
-
-const COMPLEX_MAZE_1 = `
-011122221
-122122211
-112221112
-211221222
-211111111
-222222213
-`
-
-const COMPLEX_MAZE_2 = `
-01112211122
-12212212123
-11111111111
-`
-
-const COMPLEX_EASY_MAZE_1 = `
-0211111
-1221222
-1111111
-1222221
-1211111
-1222122
-1211113
-`
-
-const IMPOSSIBLE_MAZE_1 = `
-011121
-122121
-111123
-`
 
 
 class Position {
@@ -115,7 +62,7 @@ class Maze {
 
     constructor(plan) {
         if (typeof plan === 'string') {
-            plan = plan.trim().split('\n').map(bit => bit.split('').map(nb => parseInt(nb)))
+            plan = plan.trim().split('\n').map(bit => bit.trim().split('').map(nb => parseInt(nb)))
         }
         this.plan = plan
         this.height = this.plan.length
@@ -316,20 +263,23 @@ function mathMoveToWord(moves) {
 }
 
 
-function main() {
+function main(mazes) {
 
-    const solver = new MazeSolver(new Maze(COMPLEX_MAZE_2))
+    const solver = new MazeSolver(new Maze(mazes.COMPLEX_MAZE_2))
     const instructions = solver.solve()
     
     if (instructions === 'impossible') {
         // CSW: ignore
         console.log('→ impossible')
+    } else {
+        // CSW: ignore
+        console.log('English instructions:', mathMoveToWord(instructions))
     }
-    // CSW: ignore
-    console.log('English instructions:', mathMoveToWord(instructions))
 }
 
 if (typeof window === 'undefined') {
-    main()
+
+    const mazes = require('./mazes-code.js')
+    main(mazes)
 }
 
