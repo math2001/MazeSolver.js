@@ -36,13 +36,19 @@ const COMPLEX_EASY_MAZE = `
 
 // there can be more than 2 possibilities
 
-const COMPLEX_MAZE = `
+const COMPLEX_MAZE_1 = `
 011122221
 122122211
 112221112
 211221222
 211111111
 222222213
+`
+
+const COMPLEX_MAZE_2 = `
+01112211122
+12212212123
+11111111111
 `
 
 const COMPLEX_EASY_MAZE_1 = `
@@ -54,6 +60,13 @@ const COMPLEX_EASY_MAZE_1 = `
 1222122
 1211113
 `
+
+const IMPOSSIBLE_MAZE_1 = `
+012
+212
+223
+`
+
 
 class Position {
 
@@ -222,6 +235,9 @@ class MazeSolver {
         }
 
         else {
+            if (this.crossways.length === 0) {
+                return 'impossible'
+            }
             if (this.crossways.slice(-1)[0].sameAs(this.currentPosition)) {
                 this.crossways.pop()
             }
@@ -241,6 +257,8 @@ class MazeSolver {
             } else if (format === 'path') {
                 return this._getPath()
             }
+        } else if (message === 'impossible') {
+            return 'impossible'
         } else {
             console.error(`Unexpected return value: "${message}"`)
             return []
@@ -300,13 +318,18 @@ function mathMoveToWord(moves) {
 
 function main() {
 
-    const solver = new MazeSolver(new Maze(COMPLEX_MAZE))
+    const solver = new MazeSolver(new Maze(COMPLEX_MAZE_2))
     const instructions = solver.solve()
-    if (typeof window === 'undefined') {
+    
+    if (instructions === 'impossible') {
         // CSW: ignore
-        console.log('English instructions:', mathMoveToWord(instructions))
+        console.log('→ impossible')
     }
-
+    // CSW: ignore
+    console.log('English instructions:', mathMoveToWord(instructions))
 }
 
+if (typeof window === 'undefined') {
+    main()
+}
 
