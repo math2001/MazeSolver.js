@@ -152,7 +152,7 @@ class MazeSolver {
 
     explore() {
         this.callCount++
-        if (this.callCount > 50) {
+        if (this.callCount > 1000) {
             return 'call count stop'
         }
         let potentialPositionsAround = this.getPotentialPositionsAround(this.currentPosition)
