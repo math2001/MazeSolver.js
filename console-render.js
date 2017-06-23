@@ -1,11 +1,11 @@
 "use strict";
 
 const SYMBOLS = {
-    start: '•',
-    end: '○',
-    wall: '#',
+    start:    's',
+    end:      'e',
+    wall:     'w',
     explored: '·',
-    path: '!'
+    path:     '•',
 }
 
 function render(maze, paths, exploredPositions, CODES) {
@@ -29,12 +29,18 @@ function render(maze, paths, exploredPositions, CODES) {
     }
 
     for (var i = exploredPositions.length - 1; i >= 0; i--) {
-        plan[exploredPositions[i][1]][exploredPositions[i][0]] = SYMBOLS.explored
+        if (plan[exploredPositions[i][1]][exploredPositions[i][0]] !== SYMBOLS.start
+            && plan[exploredPositions[i][1]][exploredPositions[i][0]] !== SYMBOLS.end) {
+            plan[exploredPositions[i][1]][exploredPositions[i][0]] = SYMBOLS.explored
+        }
     }
 
     for (var i = paths.length - 1; i >= 0; i--) {
         for (var j = paths[i].length - 1; j >= 0; j--) {
-            plan[paths[i][j][1]][paths[i][j][0]] = SYMBOLS.path
+            if (plan[paths[i][j][1]][paths[i][j][0]] !== SYMBOLS.start
+                && plan[paths[i][j][1]][paths[i][j][0]] !== SYMBOLS.end) {
+                plan[paths[i][j][1]][paths[i][j][0]] = SYMBOLS.path
+            }
         }
     }
 

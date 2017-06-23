@@ -276,7 +276,7 @@ if (typeof window === 'undefined') {
 
     const mazes = require('./mazes-code.js')
     const consoleRender = require('./console-render.js')(CODES)
-    consoleRender(new MazeSolver(new Maze(mazes.COMPLEX_MAZE_2)))
+    consoleRender(new MazeSolver(new Maze(mazes.VICIOUS_4)))
 
 
 }
